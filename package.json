@@ -1,0 +1,38 @@
+{
+  "name": "@appcube/node-red-contrib-listenai",
+  "version": "0.0.1",
+  "description": "A node set for raising the interactions of automation for a user, powered by AI.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "upload": "npm publish ./ --access public"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "node-red": {
+    "version": ">=2.0.0",
+    "nodes": {
+      "register-intent": "register-intent/index.js",
+      "call-intent": "call-intent/index.js",
+      "openai-user": "openai-user/index.js",
+      "openai-system": "openai-system/index.js",
+      "openai-chat": "openai-chat/index.js",
+      "openai-response": "openai-response/index.js",
+      "openai-tool": "openai-tool/index.js",
+      "openai-configuration": "openai-chat/openai-configuration/index.js"
+    }
+  },
+  "author": "huqi1024@gmail.com",
+  "url": "",
+  "license": "MIT",
+  "dependencies": {
+    "jsonrepair": "^3.4.1",
+    "node-persist": "^3.1.3",
+    "openai": "^4.20.0",
+    "pubsub-js": "^1.9.4",
+    "sugar": "^2.0.6"
+  }
+}

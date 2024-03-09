@@ -1,0 +1,68 @@
+<script type="text/javascript">
+    RED.nodes.registerType("OpenAI System", {
+        category: 'AI GPT - AI Intent',
+        color: '#79c30f', 
+        icon:"font-awesome/fa-tasks",
+        defaults: {
+            name: { value: "" },
+            instruction: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+
+        label: function () {
+            return this.name || "OpenAI System";
+        },
+        oneditprepare: function () {
+            this.editor = RED.editor.createEditor({
+                id: 'node-input-system-editor',
+                mode: 'ace/mode/text',
+                value: this.instruction
+            });
+        },
+        oneditsave: function () {
+            this.instruction = this.editor.getValue();
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },  
+    });
+</script>
+
+<script type="text/html" data-template-name="OpenAI System">
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
+        <input type="text" id="node-input-name" placeholder="Nome">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-instruction"><i class="fa fa-tag"></i>Sistema de msg</label>
+        <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-system-editor"></div>
+    </div>
+
+   
+</script>
+
+<script type="text/html" data-help-name="OpenAI System">
+    <p>Adiciona um objeto de mensagem do sistema ao objeto msg.</p>
+    
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>System Message
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Pfornece uma maneira de "prime" o sistema e definir expectativas. Este nó adicionará o objeto de bate-papo com função "system"
+            para a carga útil para OpenAI </dd>
+    </dl>
+
+    <h3>Detalhes</h3>
+    <p>Este nó deve ser usado antes<code>OpenAI Chat</code>. Este nó também pode substituir strings dentro
+        a carga útil fornecida usando <code>{}</code>. Por exemplo, dada a mensagem "Hello {foo}". 
+        se o objeto msg contém foo como uma propriedade igual a "world", então a carga enviada para OpenAI
+         seria "Olá, mundo". Se você precisar enviar chaves em sua carga útil, use chaves duplas
+        <code>{{}}</code> to escape.</p>
+</script>

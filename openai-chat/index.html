@@ -1,0 +1,165 @@
+<script type="text/javascript">
+    const DYNAMIC_OPTIONS = [
+        { value: "auto", label: "Automatic" },
+        { value: "none", label: "None" }
+    ]
+     $.getJSON('registered-intents', function (data = RED.settings.callIntentRegistry) {
+        
+            window.__tools = getToolOptions(data)
+
+            initialize()
+        });
+
+        const getToolOptions = (intents = []) => {
+                const options = intents.map(intent => {
+                    return { value: intent.id, label: intent.name }
+                })
+
+                return [...DYNAMIC_OPTIONS, ...options]
+            }
+            
+    RED.nodes.registerType("OpenAI Chat", {
+        category: 'AI GPT - AI Intent',
+        color: '#f0d2df',
+        icon:"font-awesome/fa-comment",
+        defaults: {
+            name: { value: "" },
+            base_url: { value: "https://api.lingyiwanwu.com/v1", required: false },
+            tool_choice: {
+                value: getToolOptions(RED.settings.callIntentRegistry),
+            },
+            token: {value: "", type: "openai-configuration", required: false},
+            model: { value: "yi-34b-chat-200k", required: true },
+            temperature: { value: .7, required: true },
+            max_tokens: { value: 1200, required: true },
+            top_p: { value: 1, required: true },
+            frequency_penalty: { value: 0, required: true },
+            presence_penalty: { value: 0, required: true },
+        },
+        inputs: 1,
+        outputs: 1,
+
+        label: function () {
+            return this.name || "OpenAI Chat";
+        },
+
+        oneditprepare: function(x){
+            $("#node-input-temperature").typedInput({
+                type: "num",
+            })
+            $("#node-input-max_tokens").typedInput({
+                type: "num",
+            })
+            $("#node-input-top_p").typedInput({
+                type: "num",
+            })
+            $("#node-input-frequency_penalty").typedInput({
+                type: "num",
+            })
+            $("#node-input-presence_penalty").typedInput({
+                type: "num",
+            })
+
+            $.getJSON('registered-intents', function (data = RED.settings.callIntentRegistry) {
+                window.__tools = getToolOptions(data)
+
+                $("#node-input-tool_choice").typedInput({
+                    types: [
+                        {
+                            value: "",
+                            options: window.__tools
+                        }
+                    ]
+                })
+            });
+        }
+    });
+
+</script>
+
+<script type="text/html" data-template-name="OpenAI Chat">
+    <div class="form-row">
+        <label for="node-input-name"> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-base_url"> BaseURL</label>
+        <input type="url" id="node-input-base_url" placeholder="https://api.lingyiwanwu.com/v1">
+    </div>
+    <div class="form-row">
+        <label for="node-input-token"> Token1</label>
+        <input type="text" id="node-input-token" placeholder="0a1b2c3b4d5e6f">
+    </div>
+    <div class="form-row">
+        <label for="node-input-model"> Model</label>
+        <input type="text" id="node-input-model" placeholder="yi-34b-chat-200k">
+    </div>
+    <div class="form-row">
+        <label for="node-input-tool_choice"> Tool Choice</label>
+        <input type="text" id="node-input-tool_choice" placeholder="Automatic">
+    </div>
+    <div class="form-row">
+        <label for="node-input-temperature"> Temperatura</label>
+        <input type="number" id="node-input-temperature" placeholder="0.7">
+    </div>
+    <div class="form-row">
+        <label for="node-input-max_tokens"> Max tokens</label>
+        <input type="number" id="node-input-max_tokens" placeholder="1200">
+    </div>
+    <div class="form-row">
+        <label for="node-input-top_p"> Top P</label>
+        <input type="number" id="node-input-top_p" placeholder="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-frequency_penalty"> Frequency Penalty</label>
+        <input type="number" id="node-input-frequency_penalty" placeholder="0">
+    </div>
+    <div class="form-row">
+        <label for="node-input-presence_penalty"> Presence Penalty</label>
+        <input type="number" id="node-input-presence_penalty" placeholder="0">
+    </div>
+   
+</script>
+
+<script type="text/html" data-help-name="OpenAI Chat">  
+    <p>Calls OpenAI and returns the response</p>  
+      
+    <h3>Important</h3>  
+    <p>To use this node, you need an OpenAI API key. Add the API key to the settings.js file in the node-red folder  
+        under the functonGlobalContext section using the key "openaiAPIKey".</p>  
+    <pre>  
+    functionGlobalContext: {  
+        openaiAPIKey: "Your Key Goes Here",  
+    }  
+    </pre>  
+  
+    Alternatively, you can add the token via the token configuration dropdown.  
+    See the <a href="https://github.com/montaque22/node-red-contrib-ai-intent" target="_blank">Read Me</a> for more information.  
+  
+    <h3>Inputs</h3>  
+    <dl class="message-properties">  
+        <dt class="required">model  
+            <span class="property-type">string</span>  
+        </dt>  
+        <dd>Required field that dictates the model to use when calling OpenAI</dd>  
+    </dl>  
+    <dl class="message-properties">  
+        <dt class="required">Tool Choice  
+            <span class="property-type">Dropdown</span>  
+        </dt>  
+        <dd>This setting controls whether GPT uses the provided functions to respond.  
+            If you want to force GPT to use a specific function, select it from the dropdown.  
+            <b>Automatic</b> allows GPT to decide what's best (This is the default). <b>None</b> disables the use of functions.  
+            To further optimize the API call, AI-Intent won't pass any tools  
+            to save tokens if "None" is selected. Check the documentation for more details on  
+            how tools work: <a href="https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models" target="_blank">Function Calling & Tools</a>  
+        </dd>  
+    </dl>  
+  
+    <p>For more information on other properties, see the <a target="_blank" href="https://platform.openai.com/docs/api-reference/chat/create">OpenAI's documentation</a></p>  
+      
+    <h3>Details</h3>  
+    <p>At a minimum, the OpenAI User node must be used before this node. The OpenAI User node adds the necessary  
+        information to the msg object to allow the chat to function.</p>  
+  
+</script>
