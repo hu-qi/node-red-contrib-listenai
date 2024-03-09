@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    RED.nodes.registerType("OpenAI User", {
+        category: 'AI GPT - AI Intent',
+        color: '#f9f98a',
+        icon:"font-awesome/fa-user",
+        defaults: {
+            name: { value: "" },
+            content: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+
+        label: function () {
+            return this.name || "OpenAI User";
+        },
+        oneditprepare: function(){
+            this.editor = RED.editor.createEditor({
+                id: 'node-input-user-editor',
+                mode: 'ace/mode/text',
+                value: this.content
+            });
+        },
+        oneditsave: function () {
+            this.content = this.editor.getValue();
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },
+    });
+
+//     const options = intents.map(intent => {
+//         return { value: intent.id, label: intent.name }
+//     })
+
+//     options.push(DYNAMIC_OPTION)
+
+//     return options
+// }
+</script>
+
+<script type="text/html" data-template-name="OpenAI User">
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
+        <input type="text" id="node-input-name" placeholder="Nome">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-content"><i class="fa fa-tag"></i>Conteudo</label>
+        <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-user-editor"></div>
+    </div>
+
+   
+</script>
+
+<script type="text/html" data-help-name="OpenAI User">
+    <p>Adiciona um objeto com uma função do tipo "user" ao objeto de mensagem</p>
+    
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>Content
+            <span class="property-type">string</span>
+        </dt>
+        <dd> Mensagem para enviar para OpenAI. Pode ser um comando, pergunta ou qualquer string. </dd>
+    </dl>
+
+    <h3>Detalhes</h3>
+    <p>Este nó deve ser usado antes <code>OpenAI Chat</code>. Tseu nó também pode substituir strings dentro
+        a carga útil fornecida usando <code>{}</code>. Por exemplo, dada a mensagem "Hello {foo}".
+        se o objeto msg contém foo como uma propriedade igual a "world", então a carga enviada para OpenAI
+        seria "Olá, mundo". Se você precisar enviar chaves em sua carga útil, use chaves duplas
+    <code>{{}}</code> to escape.</p>
+</script>

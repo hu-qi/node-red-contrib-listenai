@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    const DYNAMIC_OPTION = {value:"", label:"Use payload.nodeName"}   
+    
+    const getIntentOptions = (intents = []) => {
+        const options = intents.filter(option => {
+            return option.type === "Register Intent"
+        }).map(intent => {
+            return { value: intent.id, label: intent.name }
+        })
+
+        options.push(DYNAMIC_OPTION)
+
+        return options
+    }
+    $.getJSON('registered-intents', function (data = RED.settings.callIntentRegistry) {
+        window.__intentOptions = getIntentOptions(data)
+        
+        initialize()
+    });
+
+
+    const initialize = () => {
+        RED.nodes.registerType("Call Intent", {
+            category: 'AI GPT - AI Intent',
+            color: '#3bc6ac',
+            icon: "font-awesome/fa-compress",
+            defaults: {
+                name: { value: "" },
+                registeredNodeId: {
+                    value: getIntentOptions(RED.settings.callIntentRegistry),
+                    validate: (value) => {
+                        return window.__intentOptions.some(option => {
+                            return option.value === value
+                        })
+                    }
+                },
+            },
+            inputs: 1,
+            outputs: 0,
+
+            label: function () {
+                return this.name || "Call Intent";
+            },
+
+            oneditprepare: function () {
+                $("#node-input-message").typedInput({
+                    type: "str",
+                    types: ["str", "num", "bool", "json"],
+                    typeField: "#node-input-message-type"
+                })
+
+                 $.getJSON('registered-intents', function (data = RED.settings.callIntentRegistry) {
+                    window.__intentOptions = getIntentOptions(data)
+
+                    $("#node-input-registeredNodeId").typedInput({
+                         types: [
+                             {
+                                 value: "",
+                                 options: window.__intentOptions
+                             }
+                         ]
+                     })
+                });
+
+               
+            }
+
+        });
+    }
+    
+</script>
+
+<script type="text/html" data-template-name="Call Intent">
+    <div style="display: flex; justify-content: center; margin-bottom: 25px;">
+        <a href="https://youtu.be/oWP8es4g4D0" target="_blank" referrerpolicy="no-referrer" style="color: #f53b57"><i
+                class="fa fa-youtube"></i><span style="padding-left: 10px;">Assista ao Tutorial do Nó de Chamada de Intenção</span></a>
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
+        <input type="text" id="node-input-name" placeholder="Nome">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-registeredNodeId"><i class="fa fa-tag"></i> Nome do Nó Registrado</label>
+        <input type="text" id="node-input-registeredNodeId" placeholder="Nome do nó registrado">
+    </div>
+
+</script>
+
+<script type="text/html" data-help-name="Call Intent">
+    <p>Dispara o nó de Registro de Intenção que possui o id correspondente.</p>
+    
+    <h3>Entradas</h3>
+    <dl class="message-properties">
+        <dt>Nome do Nó Registrado
+            <span class="property-type">string</span>
+        </dt>
+        <dd>Nome do nó de intenção registrado que você deseja acionar. Para conveniência, você pode escolher o nome no
+            dropdown, no entanto, você pode escolher payload.nodeName para permitir que o nó leia o
+            nome da intenção do objeto msg - <code>msg.payload.nodeName</code>. Esta função também pode ser acionada várias vezes 
+            se o payload for um array de objetos com nodeName <code>msg.payload = [{nodeName: "fake_name"}]</code>.
+        </dd>
+    </dl>
+
+    <h3>Detalhes</h3>
+    <p>Este nó pode ser usado como uma maneira independente de acionar intenções personalizadas (isso funcionará de forma muito semelhante aos nós de entrada/saída de link)
+        ou este nó pode ser usado imediatamente após o nó <code>OpenAI Response</code>. Se usado após o nó mencionado
+        anteriormente, o OpenAI pode acionar dinamicamente quaisquer intenções registradas.</p>
+</script>

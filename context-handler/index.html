@@ -1,0 +1,142 @@
+<script type="text/javascript">
+    RED.nodes.registerType("Context Handler", {
+        category: 'AI GPT - AI Intent',
+        color: '#ecf0f1',
+        icon:"font-awesome/fa-floppy-o",
+        defaults: {
+            name: { value: "" },
+            action: { value: "find" },
+            contextId: { value: "" },
+            path: { value: "payload" },
+            wait: {value: 2}
+        },
+        inputs: 1,
+        outputs: 2,
+        outputLabels:["Found Context", "Cleared Context"],
+        label: function () {
+            return this.name || "Context Handler";
+        },
+        oneditprepare:function() {
+           
+
+            $("#node-input-action").on("change",() =>{
+                
+                const type = $("#node-input-action").val()
+                if(["find", "clear intent", "clear context", "get conversation intent", "get registered intents"].includes(type)){
+                        $("#prop-value").hide()
+                }else{
+                     $("#prop-value").show()
+                }
+
+                if(["get conversation intent", "get registered intents"].includes(type)){
+                     $("#id-row, #wait-row").hide()
+                }else  if (["clear intent"].includes(type)) {
+                      $("#id-row").hide()   
+                } else {
+                    $("#id-row, #wait-row").show()
+                }
+            })
+
+            $("#node-input-wait").typedInput({
+                type: "num",
+                types: ["num"],
+                typeField: "#node-input-wait-type"
+            })
+        }
+    });
+
+    function initInput(){
+         $("#node-input-inputType")
+         
+         if($("#node-input-inputType").val() === "value"){
+              $("#node-input-input").typedInput({
+                 type: "str",
+                 types: ["str", "json", "num", "bool"],
+                 typeField: "#node-input-inputAttr"
+             })
+         }else{
+              $("#node-input-input").typedInput({
+                 type: "str",
+                 types: ["str"],
+                 typeField: "#node-input-inputAttr"
+             })
+         }
+    }
+</script>
+
+<script type="text/html" data-template-name="Context Handler">
+<div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
+    <input type="text" id="node-input-name" placeholder="Nome">
+</div>
+
+<div class="form-row">
+    <label for="node-input-action"><i class="fa fa-tag"></i> Action</label>
+    <select name="Actions" id="node-input-action">
+        <option value="find">Procurar</option>
+        <option value="get conversation intent">Obtenha a intenção da conversa atual</option>
+        <option value="get registered intents">Obtenha todas as intenções registradas</option>
+        <option value="save">Salvar</option>
+        <option value="clear context">Limpar as intents</option>
+        <option value="clear intent">Limpar intent da conversa </option>
+    </select>
+
+</div>
+<div class="form-row" id="id-row">
+    <label for="node-input-contextId"><i class="fa fa-tag"></i> ID de contexto</label>
+    <input type="text" id="node-input-contextId" placeholder="ContextID">
+</div>
+
+<div class="form-row" id="wait-row">
+    <label for="node-input-wait"><i class="fa fa-tag"></i> Aguarde (minutos)</label>
+    <input type="text" id="node-input-wait">
+    <input type="hidden" id="node-input-wait-type">
+</div>
+
+
+
+<div class="form-row" style="display: flex;" id="prop-value">
+    <label for="node-input-path"><i class="fa fa-tag"></i> Caminho</label>
+    <input type="text" id="node-input-path" placeholder="payload.property.path">
+</div>
+</script>
+
+<script type="text/html" data-help-name="Context Handler">
+    <p>Armazena dados temporariamente no armazenamento de contexto global</p>
+    
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>action
+            <span class="property-type">encontrar | salvar | limpar</span>
+        </dt>
+        <dd><b>Find</b> retornará o valor para o dado inserido <code>id</code></dd>
+        <dd><b>Save</b> armazena o <code>entrada</code> no dados <code>id</code></dd>
+        <dd><b>Clear Context</b> exclui os dados no determinado <code>id</code></dd>
+        <dd><b>Clear Register Intent</b> Remove a intenção salva no contexto pelo nó de intenção de registro</dd>
+        <dt>Context Id
+            <span class="property-type">string</span>
+        </dt>
+        <dd> Um ID exclusivo no qual armazenar a entrada fornecida</dd>
+        
+        <dt>Wait
+            <span class="property-type">float</span>
+        </dt>
+        <dd>Número de minutos até que o contexto seja limpo.
+            O contexto deve poder ser limpo para manter o desempenho,
+            no entanto, se você sair <code>wait</code> blank  (<code>undefined</code>)isso desativará o recurso de limpeza automática.</dd>
+
+        <dt class="optional">Path <span class="property-type">string </span></dt>
+        <dd>Aplicável apenas para <code>Save</code>. <b>Path</b> representa o caminho da notação de ponto no objeto msg onde os dados são armazenados</dd>
+    </dl>
+    
+    <h3>Details</h3>
+    <p>O manipulador de contexto é uma implementação de nó opinativo do contexto global. Ele permite que você armazene dados para um
+        período de tempo para ser reutilizado por muitos fluxos e automações. Um exemplo disso é economizar tempo em uma automação
+    e, em seguida, referenciar esse valor de dados e tempo em uma automação completamente separada</p>
+    <p>Quando você usa o <b>Find</b> or <b>Save</b> ação, ele iniciará um cronômetro para limpar as informações no horário especificado
+        chave. O cronômetro terá a duração especificada pelo <code>wait</code> propriedade. O temporizador será zerado se o nó
+        é chamado antes que o cronômetro termine.</p>
+    <p>É fortemente encorajado a agregar valor ao <code>wait</code> propriedade, pois isso permite que o contexto se esvazie
+        e reduza a taxa de consumo de tokens OpenAI.</p>
+
+</script>
