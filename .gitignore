@@ -130,4 +130,3 @@ dist
 .pnp.*
 
 .node-persist
-package-lock.json
