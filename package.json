@@ -34,5 +34,8 @@
     "openai": "^4.20.0",
     "pubsub-js": "^1.9.4",
     "sugar": "^2.0.6"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
