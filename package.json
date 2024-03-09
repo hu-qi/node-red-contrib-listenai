@@ -1,7 +1,13 @@
 {
+<<<<<<< HEAD
   "name": "@appcube/node-red-contrib-listenai",
   "version": "0.0.1",
   "description": "A node set for raising the interactions of automation for a user, powered by AI.",
+=======
+  "name": "@infozap/node-red-contrib-ai-gpt-intent",
+  "version": "1.0.2",
+  "description": "Uma coleção de nós para elevar as interações de automação de um usuário",
+>>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "upload": "npm publish ./ --access public"
@@ -26,7 +32,7 @@
     }
   },
   "author": "huqi1024@gmail.com",
-  "url": "",
+  "url": "https://github.com/hu-qi/node-red-contrib-listenai.git",
   "license": "MIT",
   "dependencies": {
     "jsonrepair": "^3.4.1",
