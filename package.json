@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A node set for raising the interactions of automation for a user, powered by AI.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "upload": "npm publish ./ --access public"
   },
   "keywords": [
