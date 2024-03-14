@@ -47,5 +47,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("A.I Tool", OpenAIFunctionHandlerNode);
+  RED.nodes.registerType("AI 工具", OpenAIFunctionHandlerNode);
 };

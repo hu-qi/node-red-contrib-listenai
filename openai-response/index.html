@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType("OpenAI Response", {
-        category: 'AI GPT - AI Intent',
+    RED.nodes.registerType("AI Response", {
+        category: 'AI 意图',
         color: '#6a7f93',
         icon:"font-awesome/fa-commenting-o",
         defaults: {
@@ -11,7 +11,7 @@
         outputs: 1,
 
         label: function () {
-            return this.name || "OpenAI Response";
+            return this.name || "AI Response";
         },
 
         oneditprepare: function(x){
@@ -21,32 +21,33 @@
 
 </script>
 
-<script type="text/html" data-template-name="OpenAI Response">
+<script type="text/html" data-template-name="AI Response">
 
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Nome">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div style="display: flex; justify-content: space-around;">
     
         <label for="node-input-keepFormatting" style="display: flex;">
             <i class="fa fa-tag"></i>
-            <span style="margin-left: 5px;">Continue formatando</span>
+            <span style="margin-left: 5px;">Keep Formatting</span>
             <input style="display: inline-block;margin-left: 1rem;" type="checkbox" id="node-input-keepFormatting"
                 name="keep formatting"></label>
     </div>
 </script>
 
-<script type="text/html" data-help-name="OpenAI Response">
-    <p>Limpe a resposta do OpenAI e retorne uma interface de dados consistente </p>
+<script type="text/html" data-help-name="AI Response">
+    <p>Clean up the AI Response and return a consistent data interface </p>
 
-    <h3>Detalhes</h3>
-    <p>Este nó deve ser usado diretamente após o nó <code>OpenAI Chat</code>.</p>
+    <h3>Details</h3>
+    <p>This node should be used directly after the <code>AI Chat</code> node.</p>
 
-    <h4>Continue formatando</h4>
-    Por padrão, este nó retirará a resposta do GPT para retornar uma string limpa.
-     Isto evita anomalias causadas pela forma como diferentes saídas (por exemplo, saída para
-      telegrama versus conversão de texto em fala). No entanto, se você quiser manter a formatação retornada pelo GPT,
-      marque a caixa de seleção.
+    <h4>Keep Formatting</h4>
+    By default, this node will strip the response from GPT to return a clean string.
+     This avoids anomalies caused by how different outputs (e.g., output to 
+      telegram versus text-to-speech conversion). However, if you want to retain the formatting returned by GPT,
+      check the checkbox.
 </script>
+

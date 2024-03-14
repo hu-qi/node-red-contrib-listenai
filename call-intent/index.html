@@ -3,7 +3,7 @@
     
     const getIntentOptions = (intents = []) => {
         const options = intents.filter(option => {
-            return option.type === "Register Intent"
+            return option.type === "注册意图"
         }).map(intent => {
             return { value: intent.id, label: intent.name }
         })
@@ -20,8 +20,8 @@
 
 
     const initialize = () => {
-        RED.nodes.registerType("Call Intent", {
-            category: 'AI GPT - AI Intent',
+        RED.nodes.registerType("调用意图", {
+            category: 'AI 意图',
             color: '#3bc6ac',
             icon: "font-awesome/fa-compress",
             defaults: {
@@ -39,7 +39,7 @@
             outputs: 0,
 
             label: function () {
-                return this.name || "Call Intent";
+                return this.name || "调用意图";
             },
 
             oneditprepare: function () {
@@ -70,40 +70,41 @@
     
 </script>
 
-<script type="text/html" data-template-name="Call Intent">
+<script type="text/html" data-template-name="调用意图">
     <div style="display: flex; justify-content: center; margin-bottom: 25px;">
         <a href="https://youtu.be/oWP8es4g4D0" target="_blank" referrerpolicy="no-referrer" style="color: #f53b57"><i
-                class="fa fa-youtube"></i><span style="padding-left: 10px;">Assista ao Tutorial do Nó de Chamada de Intenção</span></a>
+                class="fa fa-youtube"></i><span style="padding-left: 10px;">Attend to the Call Intention Node Tutorial</span></a>
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Nome">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
-        <label for="node-input-registeredNodeId"><i class="fa fa-tag"></i> Nome do Nó Registrado</label>
-        <input type="text" id="node-input-registeredNodeId" placeholder="Nome do nó registrado">
+        <label for="node-input-registeredNodeId"><i class="fa fa-tag"></i> Registered Node Name</label>
+        <input type="text" id="node-input-registeredNodeId" placeholder="Registered Node Name">
     </div>
 
 </script>
 
-<script type="text/html" data-help-name="Call Intent">
-    <p>Dispara o nó de Registro de Intenção que possui o id correspondente.</p>
+<script type="text/html" data-help-name="调用意图">
+    <p>Triggers the Intent Registration node that has the corresponding id.</p>
     
-    <h3>Entradas</h3>
+    <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>Nome do Nó Registrado
+        <dt>Registered Node Name
             <span class="property-type">string</span>
         </dt>
-        <dd>Nome do nó de intenção registrado que você deseja acionar. Para conveniência, você pode escolher o nome no
-            dropdown, no entanto, você pode escolher payload.nodeName para permitir que o nó leia o
-            nome da intenção do objeto msg - <code>msg.payload.nodeName</code>. Esta função também pode ser acionada várias vezes 
-            se o payload for um array de objetos com nodeName <code>msg.payload = [{nodeName: "fake_name"}]</code>.
+        <dd>The name of the registered intent node you want to trigger. For convenience, you can choose the name from the dropdown,
+            however, you can choose payload.nodeName to allow the node to read the intent name from the msg object - <code>msg.payload.nodeName</code>. This function can also be triggered multiple times
+            if the payload is an array of objects with nodeName <code>msg.payload = [{nodeName: "fake_name"}]</code>.
         </dd>
     </dl>
 
-    <h3>Detalhes</h3>
-    <p>Este nó pode ser usado como uma maneira independente de acionar intenções personalizadas (isso funcionará de forma muito semelhante aos nós de entrada/saída de link)
-        ou este nó pode ser usado imediatamente após o nó <code>OpenAI Response</code>. Se usado após o nó mencionado
-        anteriormente, o OpenAI pode acionar dinamicamente quaisquer intenções registradas.</p>
+    <h3>Details</h3>
+    <p>This node can be used either as a standalone way to trigger custom intents (this will work very similarly to link input/output nodes)
+        or this node can be used immediately after the <code>AI Response</code> node. If used after the mentioned node,
+        OpenAI can dynamically trigger any registered intents.
+    </p>
 </script>
+

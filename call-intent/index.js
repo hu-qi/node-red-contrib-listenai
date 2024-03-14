@@ -5,18 +5,10 @@ const { end } = require("../globalUtils");
 let intents;
 
 /**
-<<<<<<< HEAD
  * 获取与给定名称或ID匹配的上下文中的意图对象。
  * @param {string} nameOrID - 要匹配的名称或ID。
  * @param {Record<string, object>} context - 上下文对象。
  * @returns {object|undefined} 匹配的意图对象，如果没有找到匹配项，则返回undefined。
-=======
- * Procura no contexto por um objeto cuja propriedade `name` ou `id` corresponde ao parâmetro dado nameOrID
- * e retorna o objeto correspondente.
- * @param {string} nameOrID
- * @param {Record<string, object>} context
- * @returns
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
  */
 const getMatchingIntentFromContext = (nameOrID = "", context) => {
   return Object.values(context).find((intent) => {
@@ -25,17 +17,10 @@ const getMatchingIntentFromContext = (nameOrID = "", context) => {
 };
 
 /**
-<<<<<<< HEAD
  * 向回调函数发送字符串错误或上下文中的匹配节点。
  * @param {string} nameOrId - 要查找的名称或ID。
  * @param {object} context - 上下文对象。
  * @param {function} callback - 回调函数。
-=======
- * Dispara o callback com uma string de erro ou com o nó correspondente ao valor `nameOrId` do contexto.
- * @param {string} nameOrId
- * @param {object} context
- * @param {function} callback
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
  */
 const getNode = (nameOrId, context, callback) => {
   const node = getMatchingIntentFromContext(nameOrId, context);
@@ -114,7 +99,7 @@ function CallIntentHandlerNode(config) {
   getDatabase(async (storage) => {
     intents = await storage.values();
 
-    RED.nodes.registerType("Call Intent", CallIntentHandlerNode, {
+    RED.nodes.registerType("调用意图", CallIntentHandlerNode, {
       settings: {
         callIntentRegistry: {
           value: intents,

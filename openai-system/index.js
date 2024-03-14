@@ -23,5 +23,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("OpenAI System", OpenAISystemHandlerNode);
+  RED.nodes.registerType("AI System", OpenAISystemHandlerNode);
 };

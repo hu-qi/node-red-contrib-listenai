@@ -34,7 +34,7 @@ module.exports = function (RED) {
         };
 
       if (!path && ["find", "save"].includes(action)) {
-        return node.error("Caminho ausente");
+        return node.error("Missing path");
       } else if (
         !key &&
         ![
@@ -43,7 +43,7 @@ module.exports = function (RED) {
           "get registered intents",
         ].includes(action)
       ) {
-        return node.error("ID ausente");
+        return node.error("Missing id");
       }
 
       let value = Sugar.Object.get(msg, path);
@@ -84,7 +84,7 @@ module.exports = function (RED) {
       done();
     });
   }
-  RED.nodes.registerType("Context Handler", ContextHandlerNode, {
+  RED.nodes.registerType("上下文处理器", ContextHandlerNode, {
     settings: {
       contextHandlerGlobals: {
         value: { foo: "bar", hello: "world" },

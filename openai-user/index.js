@@ -21,5 +21,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("OpenAI User", OpenAIUserHandlerNode);
+  RED.nodes.registerType("AI User", OpenAIUserHandlerNode);
 };

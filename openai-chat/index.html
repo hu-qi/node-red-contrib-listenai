@@ -18,8 +18,8 @@
                 return [...DYNAMIC_OPTIONS, ...options]
             }
             
-    RED.nodes.registerType("OpenAI Chat", {
-        category: 'AI GPT - AI Intent',
+    RED.nodes.registerType("AI Chat", {
+        category: 'AI 意图',
         color: '#f0d2df',
         icon:"font-awesome/fa-comment",
         defaults: {
@@ -28,7 +28,7 @@
             tool_choice: {
                 value: getToolOptions(RED.settings.callIntentRegistry),
             },
-            token: {value: "", type: "openai-configuration", required: false},
+            token: {value: "", type: "ai-configuration", required: false},
             model: { value: "yi-34b-chat-200k", required: true },
             temperature: { value: .7, required: true },
             max_tokens: { value: 1200, required: true },
@@ -40,7 +40,7 @@
         outputs: 1,
 
         label: function () {
-            return this.name || "OpenAI Chat";
+            return this.name || "AI Chat";
         },
 
         oneditprepare: function(x){
@@ -77,9 +77,8 @@
 
 </script>
 
-<script type="text/html" data-template-name="OpenAI Chat">
+<script type="text/html" data-template-name="AI Chat">
     <div class="form-row">
-<<<<<<< HEAD
         <label for="node-input-name"> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
@@ -88,7 +87,7 @@
         <input type="url" id="node-input-base_url" placeholder="https://api.lingyiwanwu.com/v1">
     </div>
     <div class="form-row">
-        <label for="node-input-token"> Token1</label>
+        <label for="node-input-token"> Token</label>
         <input type="text" id="node-input-token" placeholder="0a1b2c3b4d5e6f">
     </div>
     <div class="form-row">
@@ -97,21 +96,6 @@
     </div>
     <div class="form-row">
         <label for="node-input-tool_choice"> Tool Choice</label>
-=======
-        <label for="node-input-name"> Nome</label>
-        <input type="text" id="node-input-name" placeholder="Nome">
-    </div>
-    <div class="form-row">
-        <label for="node-input-token"> Token</label>
-        <input type="text" id="node-input-token" placeholder="0a1b2c3b4d5e6f">
-    </div>
-    <div class="form-row">
-        <label for="node-input-model"> Modelo</label>
-        <input type="text" id="node-input-model" placeholder="gpt-3.5-turbo">
-    </div>
-    <div class="form-row">
-        <label for="node-input-tool_choice"> Escolha da ferramenta</label>
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
         <input type="text" id="node-input-tool_choice" placeholder="Automatic">
     </div>
     <div class="form-row">
@@ -119,11 +103,7 @@
         <input type="number" id="node-input-temperature" placeholder="0.7">
     </div>
     <div class="form-row">
-<<<<<<< HEAD
         <label for="node-input-max_tokens"> Max tokens</label>
-=======
-        <label for="node-input-max_tokens"> Máximo de tokens</label>
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
         <input type="number" id="node-input-max_tokens" placeholder="1200">
     </div>
     <div class="form-row">
@@ -131,26 +111,17 @@
         <input type="number" id="node-input-top_p" placeholder="0">
     </div>
     <div class="form-row">
-<<<<<<< HEAD
         <label for="node-input-frequency_penalty"> Frequency Penalty</label>
         <input type="number" id="node-input-frequency_penalty" placeholder="0">
     </div>
     <div class="form-row">
         <label for="node-input-presence_penalty"> Presence Penalty</label>
-=======
-        <label for="node-input-frequency_penalty"> Penalidade de frequência</label>
-        <input type="number" id="node-input-frequency_penalty" placeholder="0">
-    </div>
-    <div class="form-row">
-        <label for="node-input-presence_penalty"> Penalidade de frequência</label>
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765
         <input type="number" id="node-input-presence_penalty" placeholder="0">
     </div>
    
 </script>
 
-<<<<<<< HEAD
-<script type="text/html" data-help-name="OpenAI Chat">  
+<script type="text/html" data-help-name="AI Chat">  
     <p>Calls OpenAI and returns the response</p>  
       
     <h3>Important</h3>  
@@ -188,52 +159,7 @@
     <p>For more information on other properties, see the <a target="_blank" href="https://platform.openai.com/docs/api-reference/chat/create">OpenAI's documentation</a></p>  
       
     <h3>Details</h3>  
-    <p>At a minimum, the OpenAI User node must be used before this node. The OpenAI User node adds the necessary  
+    <p>At a minimum, the AI User node must be used before this node. The AI User node adds the necessary  
         information to the msg object to allow the chat to function.</p>  
   
 </script>
-=======
-<script type="text/html" data-help-name="OpenAI Chat">
-    <p>Chama OpenAI e retorna a resposta</p>
-    
-    <h3>Important</h3>
-    <p>Para usar este nó você precisa de uma chave API da OpenAI. Adicione a chave API ao arquivo settings.js na pasta node-red em
-        a seção functonGlobalContext usando a chave "openaiAPIKey"</p>
-    <pre>
-    functionGlobalContext: {
-        openaiAPIKey: "Your Key Goes Here",
-    }
-    </pre>
-
-    Alternatively, you can add the token via the token configuration dropdown. 
-    See theComo alternativa, você pode adicionar o token por meio do menu suspenso de configuração do token.
-    Veja o <a href="https://github.com/montaque22/node-red-contrib-ai-intent" target="_blank">Read Me</a> for more information 
-
-    <h3>Inputs</h3>
-    <dl class="message-properties">
-        <dt class="required">model
-            <span class="property-type">string</span>
-        </dt>
-        <dd> Required field that dictates the model to use when calling OpenAI </dd>
-    </dl>
-    <dl class="message-properties">
-        <dt class="required">Tool Choice
-            <span class="property-type">Dropdown</span>
-        </dt>
-        <dd> Esta configuração controla se o GPT usa ou não as funções fornecidas para responder.
-            Se você deseja forçar o GPT a usar uma função específica, selecione-a no menu suspenso.
-            <b>Automatico</b> permite que o GPT decida o que é melhor(This is the default). <b>None</b> desativa o uso de funções.
-            para otimizar ainda mais a chamada da API, o AI-Intent não passará nenhuma das ferramentas
-            para salvar tokens se "None" estiver selecionado. Verifique a documentação para obter mais detalhes sobre
-            como funcionam as ferramentas: <a href="https://cookbook.openai.com/examples/how_to_call_functions_with_chat_models" target="_blank">Function Calling & Tools</a>
-        </dd>
-    </dl>
-
-    <p>Para saber mais sobre os demais imóveis, veja umt <a target="_blank" href="https://platform.openai.com/docs/api-reference/chat/create">OpenAI's documentation</a></p>
-    
-    <h3>Details</h3>
-    <p>No mínimo, o nó OpenAI User deve ser usado antes deste nó. O nó OpenAI User adiciona o necessário
-        informações ao objeto msg para permitir que o chat funcione.</p>
-
-</script>
->>>>>>> e1e17c0880289c4dea3f417326e1f6a0d8267765

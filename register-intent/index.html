@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType("Register Intent", {
-        category: 'AI GPT - AI Intent',
+    RED.nodes.registerType("注册意图", {
+        category: 'AI 意图',
         color: '#7c7f93',
         icon:"font-awesome/fa-registered",
         defaults: {
@@ -11,7 +11,7 @@
         inputs: 0,
         outputs: 1,
         label: function () {
-            return this.name || "Register Intent";
+            return this.name || "注册意图";
         },
 
     });
@@ -19,7 +19,7 @@
 
 </script>
 
-<script type="text/html" data-template-name="Register Intent">
+<script type="text/html" data-template-name="注册意图">
 
     <!-- <div style="display: flex; justify-content: center; margin-bottom: 25px;">
         <a href="https://youtu.be/oWP8es4g4D0" target="_blank" referrerpolicy="no-referrer"
@@ -30,15 +30,15 @@
     <div>
         
         <div class="form-row">
-            <label for="node-input-name"><i class="fa fa-tag"></i> Nome</label>
-            <input type="text" id="node-input-name" placeholder="Nome">
+            <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+            <input type="text" id="node-input-name" placeholder="Name">
         </div>
-        <div class="form-tips"><b>Tip:</b> O nome deve ser alfanumérico, incluindo sublinhados e hífens (sem espaços).</div>
+        <div class="form-tips"><b>Tip:</b> The name should be alphanumeric, including underscores and hyphens (no spaces).</div>
     </div>
     
 
     <div class="form-row">
-        <label for="node-input-description"><i class="fa fa-tag"></i>Descrição da intent</label>
+        <label for="node-input-description"><i class="fa fa-tag"></i>Intent Description</label>
         <input type="text" id="node-input-description" placeholder="Description">
     </div>
 
@@ -46,43 +46,43 @@
 
         <label for="node-input-excludeFromOpenAi" style="display: flex;">
             <i class="fa fa-tag"></i>
-            <span style="margin-left: 5px;">Excluir de OpenAI</span>
+            <span style="margin-left: 5px;">Exclude from OpenAI</span>
             <input style="display: inline-block;margin-left: 1rem;" type="checkbox" id="node-input-excludeFromOpenAi"
                 name="enable conversation"></label>
     </div>
   
 </script>
 
-<script type="text/html" data-help-name="Register Intent">
-    <p>Cria um ouvinte para um evento específico e é acionado quando o evento é acionado</p>
+<script type="text/html" data-help-name="注册意图">
+    <p>Creates a listener for a specific event and triggers when the event is fired</p>
     
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>Nome
+        <dt>Name
             <span class="property-type">string</span>
         </dt>
-        <dd>Deve ser exclusivo para identificar uma automação. Isso também deve usar case de camelo </dd>
+        <dd>Must be unique to identify an automation. It should also use camel case</dd>
 
-        <dt>description
+        <dt>Description
             <span class="property-type">string</span>
         </dt>
-        <dd>Ddescreve para que a intenção registrada deve ser usada. OpenAI usará isso como uma descrição quando
-            enviando esta intenção como uma carga útil de função.</dd>
+        <dd>Describes what the registered intent should be used for. OpenAI will use this as a description when 
+            sending this intent as a function payload.</dd>
     
-        <dt class="optional">excludeFromOpenAi
+        <dt class="optional">Exclude from OpenAI
             <span class="property-type">boolean</span>
         </dt>
-        <dd>Se for verdade, esta intenção não será enviada ao OpenAI como uma função que pode chamar</dd>
+        <dd>If true, this intent will not be sent to OpenAI as a callable function</dd>
     
     </dl>
     
-    <h3>Detalhes</h3>
-    <p>Coloque este nó no início de uma automação para registrá-la para ser chamada pelo nó <code>Call-Intent</code>.
-        Registrar uma intenção é útil para integração com IA, pois a IA pode usar a <b>descrição</b> para
-        determinar as circunstâncias em que a intenção deve ser chamada. Como resultado, deixe a <b>descrição</b> clara e sucinta
-        que possível.</p>
-<p>Como este nó é um gatilho personalizado, o OpenAI, por padrão, irá adicioná-lo à sua lista de funções que pode chamar para
-    lidar com solicitações de usuários. Se isso está afetando negativamente os resultados do OpenAI ou se você não deseja esta função
-    a ser considerado pela OpenAI, defina <b>excludeFromOpenAi</b> to <code>true</code> 
+    <h3>Details</h3>
+    <p>Place this node at the beginning of an automation to register it to be called by the <code>Call-Intent</code> node.
+        Registering an intent is useful for integration with AI as the AI can use the <b>Description</b> to 
+        determine the circumstances in which the intent should be called. As a result, make the <b>Description</b> as clear and succinct 
+        as possible.</p>
+<p>As this node is a custom trigger, OpenAI, by default, will add it to its list of functions it can call to 
+    handle user requests. If this is negatively affecting OpenAI results or if you do not want this function 
+    to be considered by OpenAI, set <b>Exclude from OpenAI</b> to <code>true</code> 
 </p>
 </script>

@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    RED.nodes.registerType("A.I Tool", {
-        category: 'AI GPT - AI Intent',
+    RED.nodes.registerType("AI 工具", {
+        category: 'AI 意图',
         color: '#f1c40f',
         icon:"font-awesome/fa-wrench",
         defaults: {
@@ -11,7 +11,7 @@
         outputs: 1,
 
         label: function () {
-            return this.name || "A.I Tool";
+            return this.name || "AI 工具";
         },
          oneditprepare: function () {
 
@@ -22,36 +22,35 @@
     });
 </script>
 
-<script type="text/html" data-template-name="A.I Tool">
+<script type="text/html" data-template-name="AI 工具">
 
     <div class="form-row">
-        <label for="node-input-name"> Nome</label>
+        <label for="node-input-name"> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 
     <div class="form-row">
-        <label for="node-input-tool">Definição de ferramenta</label>
+        <label for="node-input-tool">Tool Definition</label>
         
         <input id="node-input-tool" name="openai Tool"/>
     </div>
-
    
 </script>
 
-<script type="text/html" data-help-name="A.I Tool">
-    <p>Função que a OpenAI pode referenciar para responder de forma mais eficaz a solicitações peculiares</p>
+<script type="text/html" data-help-name="AI 工具">
+    <p>Function that OpenAI can reference to respond more effectively to peculiar requests</p>
     
     <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>Definição de ferramenta
+        <dt>Tool Definition
             <span class="property-type">json</span>
         </dt>
-        <dd> Esquema JSON que define a função que o GPT pode chamar para realizar o trabalho. Confira a <a href="https://platform.openai.com/docs/api-reference/chat/create">documentation</a> 
-            para ver como escrever o esquema JSON </dd>
+        <dd> JSON schema defining the function that GPT can call to do the work. Check the <a href="https://platform.openai.com/docs/api-reference/chat/create">documentation</a> 
+            to see how to write the JSON schema </dd>
     </dl>
 
-    <h3>Detalhes</h3>
-    <p>Este nó deve vir antes do <code>OpenAI Chat</code> nó, pois este nó da ferramenta OpenAI adiciona as funções para
-        o objeto msg para o <code>OpenAI Chat</code> usar. OpenAI é experimental, então talvez você precise fazer muitos ajustes
-        para obter os resultados desejados</p>
+    <h3>Details</h3>
+    <p>This node should come before the <code>AI Chat</code> node, as this OpenAI Tool node adds the functions to 
+        the msg object for the <code>AI Chat</code> to use. OpenAI is experimental, so you may need to make many adjustments 
+        to get the desired results.</p>
 </script>

@@ -27,7 +27,7 @@ module.exports = function (RED) {
         };
       msg.originalResponse = msg.payload;
       const output = [];
-      // Goes through the OpenAI Response and creates a standard uniformed output
+      // Goes through the AI Response and creates a standard uniformed output
       msg.payload.choices.forEach((answer) => {
         const { content = "", tool_calls } = answer.message;
 
@@ -61,5 +61,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("OpenAI Response", OpenAIResponseHandlerNode);
+  RED.nodes.registerType("AI Response", OpenAIResponseHandlerNode);
 };

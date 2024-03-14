@@ -10,7 +10,7 @@ const createFunctionsFromContext = (context = {}) => {
   return (
     Object.values(context)
       .filter((payload) => {
-        return payload.type === "Register Intent";
+        return payload.type === "注册意图";
       })
       .map((payload) => {
         if (payload.excludeFromOpenAi) {
@@ -172,7 +172,7 @@ module.exports = function (RED) {
       const openai = apiProps.base_url? new OpenAI({ apiKey, baseURL: apiProps.base_url }) : new OpenAI({ apiKey });
       const finalProps = {
         ...toolProps,
-        base_url: apiProps.base_url,
+        // base_url: apiProps.base_url,
         model: apiProps.model,
         messages: apiProps.messages,
         temperature: apiProps.temperature,
@@ -200,5 +200,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("OpenAI Chat", OpenAIChatHandlerNode);
+  RED.nodes.registerType("AI Chat", OpenAIChatHandlerNode);
 };

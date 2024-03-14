@@ -86,5 +86,5 @@ module.exports = function (RED) {
     });
   }
 
-  RED.nodes.registerType("Register Intent", RegisterIntentHandlerNode);
+  RED.nodes.registerType("注册意图", RegisterIntentHandlerNode);
 };
